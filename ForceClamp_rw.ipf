@@ -1,9 +1,9 @@
 #pragma rtGlobals=3		// Use modern global access method and strict wave access.
 #pragma version=3.1
-#include "ForceRamp",version>=2
-#include "ConstantForceMotion"
-#include "SearchForMolecules"
-#include "WaveDimNote"
+#include "::Force-Ramp:ForceRamp",version>=2
+#include  "::Cypher-Utilities:ClosedLoopMotion"
+#include "::Cypher-Utilities:SearchForMolecules"
+#include "::General-Igor-Utilities:WaveDimNote"
  
 // Version 3.1 notes
 // Loading settings waves from external files.  This will replace functions that currently create those waves.  - Done
