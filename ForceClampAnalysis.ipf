@@ -193,7 +193,7 @@ Function EstimateAppliedForce(Settings,SettingsStr,DefV,[Method,FCIndex])
 		FCIndex=1
 	EndIf
 	
-	Wave FRUOffsets=root:MyForceData:Offsets
+	Wave FRUOffsets=root:FRU:preprocessing:Offsets
 	String ForceRampName=SettingsStr[%NearestForcePull]
 	Variable ForceOffset=FRUOffsets[%$ForceRampName][%Offset_Force]
 	String DefVInfo=note(DefV)
@@ -294,7 +294,7 @@ Function BuildReportFromSelectedFC()
 
 	Wave FCFitGuesses=root:ForceClamp:Analysis:FCFitGuesses
 	Variable BarrierGuess=FCFitGuesses[%EnergyBarrierInKbT]*1.3806488e-23*298
-	ForceClampFit(TF_MeasuredF,TF_Rate_ML,k0Guess=FCFitGuesses[%k0],xGuess=FCFitGuesses[%BarrierDistance],DeltaGGuess=BarrierGuess)
+	//ForceClampFit(TF_MeasuredF,TF_Rate_ML,k0Guess=FCFitGuesses[%k0],xGuess=FCFitGuesses[%BarrierDistance],DeltaGGuess=BarrierGuess)
 	Wave FCRate_Fit
 	AppendToGraph/W=TFvsRate FCRate_Fit vs TF_MeasuredF
 	ModifyGraph mode[1]=0,rgb[1]=(0,65000,0)
@@ -341,7 +341,7 @@ Function LifetimeAnalysis(StartForce,BinSize,[DoFit])
 	If(DoFit)
 		Wave FCFitGuesses=root:ForceClamp:Analysis:FCFitGuesses
 		Variable BarrierGuess=FCFitGuesses[%EnergyBarrierInKbT]*1.3806488e-23*298
-		ForceClampFit(F_Bin,F_Rate_ML,k0Guess=FCFitGuesses[%k0],xGuess=FCFitGuesses[%BarrierDistance],DeltaGGuess=BarrierGuess)
+		//ForceClampFit(F_Bin,F_Rate_ML,k0Guess=FCFitGuesses[%k0],xGuess=FCFitGuesses[%BarrierDistance],DeltaGGuess=BarrierGuess)
 		If(NoGraph)
 			Wave FCRate_Fit
 			AppendToGraph/W=FBinvsRate FCRate_Fit vs F_Bin
@@ -494,7 +494,7 @@ Function FCAnalysisButtonProc(ba) : ButtonControl
 					Variable BarrierGuess=FCFitGuesses[%EnergyBarrierInKbT]*1.3806488e-23*298
 					Wave F_Bin=root:ForceClamp:Analysis:F_Bin
 					Wave F_Rate_ML=root:ForceClamp:Analysis:F_Rate_ML
-					ForceClampFit(F_Bin,F_Rate_ML,k0Guess=FCFitGuesses[%k0],xGuess=FCFitGuesses[%BarrierDistance],DeltaGGuess=BarrierGuess)
+					//ForceClampFit(F_Bin,F_Rate_ML,k0Guess=FCFitGuesses[%k0],xGuess=FCFitGuesses[%BarrierDistance],DeltaGGuess=BarrierGuess)
 					DoWindow/F FBinvsRate
 					If(V_flag==0)
 						Display/N=FBinvsRate/K=1 F_Rate_ML vs F_Bin
@@ -590,7 +590,7 @@ Function FCAnalysisSetVarProc(sva) : SetVariableControl
 						String DefVInfo=note(ClampForce)
 						Variable SpringConstant=str2num(StringByKey("K",DefVInfo,"=",";\r"))
 						Variable Invols=str2num(StringByKey("\rInvols",DefVInfo,"=",";\r"))
-						Wave FRUOffsets=root:MyForceData:Offsets
+						Wave FRUOffsets=root:FRU:preprocessing:Offsets
 						Variable ForceOffset=FRUOffsets[%$FRName][%Offset_Force]
 						Variable SepOffset=FRUOffsets[%$FRName][%Offset_Sep]
 						ClampForce=-1*ClampForce*SpringConstant*Invols+ForceOffset//-ForceOffset
