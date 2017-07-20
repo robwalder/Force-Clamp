@@ -363,7 +363,7 @@ Function/Wave EstimateStartAndStopFCTimes(DefV,ZSensor,FCSettings,[Threshold])
 	Variable Invols=str2num(StringByKey("\rInvols",DefVInfo,"=",";\r"))
 	Variable TargetDefV=FCSettings[%DefVOffset]-FCSettings[%Force_N]/SpringConstant/Invols
 	If(ParamIsDefault(Threshold))
-		Threshold = TargetDefV+0.02
+		Threshold = TargetDefV+0.015
 	EndIF
 	
 	Variable StartTime=0
